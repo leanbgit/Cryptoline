@@ -1,0 +1,39 @@
+# Python virtual environment
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environment variables / secrets
+.env
+.env.*
+
+# Local data files
+data/
+*.csv
+*.json
+*.parquet
+
+# Logs
+*.log
+logs/
+
+# Airflow local files
+airflow/logs/
+airflow/plugins/
+airflow/airflow.cfg
+airflow/airflow.db
+
+# Docker/Postgres local volumes if you ever use bind mounts
+postgres_data/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
