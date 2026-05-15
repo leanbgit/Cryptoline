@@ -9,3 +9,6 @@ CREATE TABLE IF NOT EXISTS crypto_prices (
     price_change_percentage_24h NUMERIC,
     extracted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX IF NOT EXISTS idx_crypto_prices_extraction_date
+    ON crypto_prices (coin_id, extracted_at DESC);
