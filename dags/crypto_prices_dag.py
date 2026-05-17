@@ -4,6 +4,7 @@ from src.extract.coingecko_client import fetch_crypto_markets
 from src.config import get_coingecko_config, get_database_config
 from src.transform.crypto_market import transform_market_data
 from src.load.postgres_loader import load_crypto_prices
+from src.load.postgres_sql_runner import execute_sql_file
 
 
 
@@ -32,9 +33,18 @@ def crypto_prices_etl_dag():
         """Loads the refined and clean data into Postgres"""
         dbconfig = get_database_config()
         return load_crypto_prices(dbconfig, refined_data)
+
+    @task()
+    def refresh_metrics():
+        """Recreate the SQL views used by the dashboard metrics."""
+        dbconfig = get_database_config()
+        execute_sql_file(dbconfig, "/opt/airflow/sql/metrics.sql")
     
     raw_data = extract_crypto_data()
     refined_data = transform_crypto_data(raw_data)
-    load_crypto_data(refined_data)
+    loaded_rows = load_crypto_data(refined_data)
+    refresh_metrics_task = refresh_metrics()
+
+    loaded_rows >> refresh_metrics_task
 
 crypto_prices_etl_dag()
