@@ -9,6 +9,7 @@ A professional end-to-end data engineering and analytics project focused on cryp
 * Docker & Docker Compose
 * SQLAlchemy
 * pandas
+* Streamlit for dashboard visualization
 
 ## Goals
 This project aims to simulate a real-world data platform capable of:
